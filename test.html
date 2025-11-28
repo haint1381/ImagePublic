@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chúc mừng sinh nhật em yêu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(
+          circle at top,
+          #ffe0f0 0%,
+          #ffc0d9 30%,
+          #ff9ebf 60%,
+          #ff7aa7 100%
+        );
+        overflow: hidden;
+        color: #fff;
+      }
+
+      .hearts {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .heart {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        background: rgba(255, 255, 255, 0.8);
+        transform: rotate(45deg);
+        animation: floatUp 10s linear infinite;
+        opacity: 0.8;
+      }
+
+      .heart::before,
+      .heart::after {
+        content: "";
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: inherit;
+      }
+
+      .heart::before {
+        top: -9px;
+        left: 0;
+      }
+
+      .heart::after {
+        left: -9px;
+        top: 0;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(100vh) rotate(45deg);
+          opacity: 0;
+        }
+        15% {
+          opacity: 0.9;
+        }
+        100% {
+          transform: translateY(-10vh) rotate(45deg);
+          opacity: 0;
+        }
+      }
+
+      .card {
+        position: relative;
+        z-index: 1;
+        max-width: 420px;
+        width: 92%;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 28px 26px 22px;
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.32);
+        box-shadow: 0 18px 40px rgba(255, 71, 133, 0.45);
+        text-align: center;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.22);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .tag-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #ffe066;
+        box-shadow: 0 0 8px #ffe066;
+      }
+
+      h1 {
+        font-size: 26px;
+        margin-bottom: 6px;
+        letter-spacing: 0.03em;
+      }
+
+      .name {
+        font-size: 18px;
+        margin-bottom: 16px;
+        opacity: 0.9;
+      }
+
+      .divider {
+        width: 60px;
+        height: 2px;
+        margin: 0 auto 18px;
+        background: linear-gradient(90deg, transparent, #fff, transparent);
+        opacity: 0.8;
+      }
+
+      .message {
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        text-align: left;
+        color: #fffdfd;
+      }
+
+      .message p + p {
+        margin-top: 8px;
+      }
+
+      .highlight {
+        font-weight: 600;
+      }
+
+      .footer-line {
+        font-size: 13px;
+        opacity: 0.9;
+        margin-top: 8px;
+      }
+
+      .footer-line span {
+        font-weight: 600;
+      }
+
+      .btn-row {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      button {
+        border-radius: 999px;
+        border: none;
+        padding: 9px 18px;
+        font-size: 13px;
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .btn-primary {
+        background: #ffffff;
+        color: #ff3e7d;
+        box-shadow: 0 10px 22px rgba(255, 255, 255, 0.35);
+        font-weight: 600;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 26px rgba(255, 255, 255, 0.45);
+      }
+
+      .btn-ghost {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        color: #fff;
+      }
+
+      .btn-ghost:hover {
+        background: rgba(255, 255, 255, 0.12);
+        transform: translateY(-1px);
+      }
+
+      .small-heart {
+        font-size: 14px;
+      }
+
+      .popup {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 5;
+        padding: 16px;
+      }
+
+      /* QUAN TRỌNG: popup có thêm class hidden thì ẩn */
+      .popup.hidden {
+        display: none;
+      }
+
+      .popup-inner {
+        background: #fff;
+        color: #ff2f6f;
+        border-radius: 20px;
+        max-width: 360px;
+        width: 100%;
+        padding: 24px 22px 18px;
+        text-align: center;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      .popup-inner h2 {
+        margin-bottom: 8px;
+        font-size: 20px;
+      }
+
+      .popup-inner p {
+        font-size: 14px;
+        color: #c3154d;
+        margin-bottom: 16px;
+      }
+
+      .popup-inner button {
+        background: #ff2f6f;
+        color: white;
+        padding-inline: 22px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="hearts" id="hearts"></div>
+
+    <div class="card">
+      <div class="tag">
+        <div class="tag-dot"></div>
+        <span>Happy birthday, my love</span>
+      </div>
+
+      <h1>Chúc mừng sinh nhật em yêu</h1>
+      <div class="name">
+        Gửi đến: <span class="highlight">[Tên người yêu]</span> 💖
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="message">
+        <p>
+          Hôm nay là một ngày đặc biệt, vì thế giới này đã có thêm một người rất
+          tuyệt vời – <span class="highlight">chính là em</span>.
+        </p>
+        <p>
+          Cảm ơn em vì đã đến bên anh, mang theo nụ cười và sự dịu dàng ấm áp.
+          Anh chúc em luôn
+          <span class="highlight">vui vẻ, xinh đẹp và hạnh phúc</span> mỗi ngày.
+        </p>
+        <p>
+          Dù tương lai có ra sao, anh chỉ mong được
+          <span class="highlight">cùng em đi qua thật nhiều sinh nhật nữa</span
+          >. 💫
+        </p>
+        <p>
+          Chúc em một ngày thật đặc biệt, đầy yêu thương và bất ngờ dễ thương.
+          <span class="highlight">Anh thương em!</span> 💌
+        </p>
+      </div>
+
+      <div class="footer-line">From: <span>[Tên của bạn]</span> 🧡</div>
+
+      <div class="btn-row">
+        <button class="btn-primary" onclick="showPopup()">
+          Bấm vào đây nè 💘
+        </button>
+        <button class="btn-ghost" onclick="playWish()">Nghe lời chúc 🎵</button>
+      </div>
+    </div>
+
+    <div class="popup hidden" id="popup">
+      <div class="popup-inner">
+        <h2>Chúc em luôn hạnh phúc 💗</h2>
+        <p>
+          Dù mọi thứ có thế nào, chỉ cần em cần, anh luôn ở đây – dành cho em.
+        </p>
+        <button onclick="closePopup()">Đóng lại</button>
+      </div>
+    </div>
+
+    <audio id="audio" preload="auto"></audio>
+
+    <script>
+      function createHearts() {
+        const container = document.getElementById("hearts");
+        const total = 18;
+
+        for (let i = 0; i < total; i++) {
+          const h = document.createElement("div");
+          h.classList.add("heart");
+
+          const left = Math.random() * 100;
+          const delay = Math.random() * 10;
+          const size = 12 + Math.random() * 12;
+          const duration = 8 + Math.random() * 6;
+
+          h.style.left = left + "%";
+          h.style.animationDelay = `-${delay}s`;
+          h.style.animationDuration = `${duration}s`;
+          h.style.width = size + "px";
+          h.style.height = size + "px";
+
+          container.appendChild(h);
+        }
+      }
+      createHearts();
+
+      function showPopup() {
+        document.getElementById("popup").classList.remove("hidden");
+      }
+
+      function closePopup() {
+        document.getElementById("popup").classList.add("hidden");
+      }
+
+      function playWish() {
+        alert("Anh chưa gắn nhạc vào, nhưng lời chúc thì luôn dành cho em 💗");
+      }
+    </script>
+  </body>
+</html>
